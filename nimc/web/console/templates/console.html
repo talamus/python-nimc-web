@@ -1,0 +1,31 @@
+{#
+  Reusable console panel for one server.
+
+  Render it directly via GET /console/<slug>/panel, or include it from your own
+  template after setting `slug` and `actions`:
+
+      {% with slug="hasturian", actions=actions %}
+        {% include "console.html" %}
+      {% endwith %}
+
+  Load the script once per page (e.g. in your base template's extra_scripts):
+
+      <script type="module" src="/console-static/js/console.js"></script>
+      <link rel="stylesheet" href="/console-static/css/console.css">
+#}
+<div class="nimc-console" data-slug="{{ slug }}">
+  <div class="nimc-console__bar">
+    <span class="nimc-console__name">{{ slug }}</span>
+    {% for action in actions %}
+    <button type="button" class="nimc-console__btn"
+            data-action="{{ action.id }}"
+            {% if action.confirm %}data-confirm="Run “{{ action.label }}” on {{ slug }}?"{% endif %}
+            {% if action.kill_on_disconnect %}data-stoppable="1"{% endif %}>
+      {{ action.label }}
+    </button>
+    {% endfor %}
+    <button type="button" class="nimc-console__stop" hidden>■ Stop</button>
+    <span class="nimc-console__status" data-state="idle">Idle</span>
+  </div>
+  <pre class="nimc-console__output" hidden></pre>
+</div>

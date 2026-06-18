@@ -1,0 +1,78 @@
+/* Console panel — self-contained, dark terminal look. Scoped to .nimc-console
+   so it can drop into any page without clobbering the host styles. */
+
+.nimc-console {
+  --con-surface: #161a23;
+  --con-border: #2a2f3d;
+  --con-text: #e2e8f0;
+  --con-muted: #64748b;
+  --con-accent: #4ade80;
+  --con-error: #f87171;
+  --con-radius: 8px;
+
+  border: 1px solid var(--con-border);
+  border-radius: var(--con-radius);
+  overflow: hidden;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+}
+
+.nimc-console__bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--con-border);
+}
+
+.nimc-console__name {
+  font-weight: 700;
+  color: var(--con-text);
+  margin-right: auto;
+}
+
+.nimc-console__btn,
+.nimc-console__stop {
+  border: none;
+  border-radius: 6px;
+  padding: 0.35rem 0.8rem;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #000;
+  background: var(--con-accent);
+}
+
+.nimc-console__stop {
+  background: var(--con-error);
+}
+
+.nimc-console__btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.nimc-console__status {
+  font-size: 0.75rem;
+  color: var(--con-muted);
+}
+.nimc-console__status[data-state="running"] {
+  color: var(--con-accent);
+}
+.nimc-console__status[data-state="error"] {
+  color: var(--con-error);
+}
+
+.nimc-console__output {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  background: var(--con-surface);
+  color: var(--con-text);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  max-height: 55vh;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
